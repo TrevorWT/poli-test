@@ -13,9 +13,14 @@
   --ctp-overlay: #6c7086;
 }
 
+/* Google Fonts Import */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+
 /* Global Styles */
+body, html, textarea, pre, code, #recap-box, #summary-box, #copy-box {
+  font-family: 'JetBrains Mono', 'Segoe UI', 'Helvetica Neue', sans-serif;
+}
 body {
-  font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
   background: var(--ctp-bg);
   color: var(--ctp-text);
   margin: 0;
