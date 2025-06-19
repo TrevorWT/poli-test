@@ -91,6 +91,13 @@ async function loadQuestions() {
         copyBox.textContent = exportText;
         copyBox.style.display = "block";
 
+        // Show loading spinner
+        let spinner = document.createElement('div');
+        spinner.id = 'ai-loading-spinner';
+        spinner.innerHTML = '<span class="spinner"></span> Analyzing your answers...';
+        spinner.style = 'margin-top:1.5em; color:var(--ctp-accent); font-size:1.1em; text-align:center;';
+        copyBox.parentNode.insertBefore(spinner, copyBox.nextSibling);
+
     fetch('/analyze', {
   method: 'POST',
   headers: {
@@ -100,6 +107,9 @@ async function loadQuestions() {
 })
 .then(res => res.json())
 .then(data => {
+  // Remove spinner
+  const sp = document.getElementById('ai-loading-spinner');
+  if (sp) sp.remove();
   if (data.result) {
     let parsed;
     try {
@@ -128,6 +138,8 @@ async function loadQuestions() {
   }
 })
 .catch(err => {
+  const sp = document.getElementById('ai-loading-spinner');
+  if (sp) sp.remove();
   copyBox.innerHTML += "<br><br><strong>⚠️ Error connecting to AI.</strong>";
   console.error(err);
 });

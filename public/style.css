@@ -145,6 +145,23 @@ button:hover {
   color: var(--ctp-accent);
 }
 
+/* Spinner for AI loading */
+.spinner {
+  display: inline-block;
+  width: 1.2em;
+  height: 1.2em;
+  border: 3px solid var(--ctp-accent);
+  border-top: 3px solid var(--ctp-surface);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  vertical-align: middle;
+  margin-right: 0.5em;
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 /* Scrollbar Styles */
 ::-webkit-scrollbar {
   width: 10px;
