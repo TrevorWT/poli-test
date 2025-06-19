@@ -31,15 +31,18 @@ You are a political alignment assistant.
 Given a user's answers, return a JSON object like:
 {
   "summary": "A short summary of the user's political leaning.",
-  "figures": ["List of 5 public political figures associated with similar ideological positions"]
+  "figures": ["List of 5 public political figures associated with similar ideological positions"],
+  "coordinates": { "x": 0.0, "y": 0.0 }
 }
 
 The figures should represent well-known ideological proximity — not moral alignment.
 It's okay to include controversial political figures (e.g., Donald Trump, Karl Marx, Adolf Hitler, Benito Mussolini), but DO NOT editorialize or imply direct comparisons.
 Do not include disclaimers — just return clean JSON as requested.
+
+The coordinates field must be present and should be an object with two numbers:
+- x: from -1 (far left) to 1 (far right)
+- y: from -1 (authoritarian) to 1 (libertarian)
 `.trim();
-
-
 
   try {
     const response = await openai.chat.completions.create({
@@ -50,7 +53,18 @@ Do not include disclaimers — just return clean JSON as requested.
       ]
     });
 
-    res.json({ result: response.choices[0].message.content });
+    let result = response.choices[0].message.content;
+    let parsed;
+    try {
+      parsed = JSON.parse(result);
+    } catch (e) {
+      parsed = { summary: result, figures: [], coordinates: { x: 0, y: 0 } };
+    }
+    // Ensure coordinates field exists and is valid
+    if (!parsed.coordinates || typeof parsed.coordinates.x !== 'number' || typeof parsed.coordinates.y !== 'number') {
+      parsed.coordinates = { x: 0, y: 0 };
+    }
+    res.json({ result: JSON.stringify(parsed) });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Something went wrong with OpenAI." });
