@@ -120,5 +120,5 @@ async function loadQuestions() {
             .catch(() => alert("Could not copy text"));
     });
   // 🚀 Initial call to display the first question
-  loadQuestion();
+  loadQuestions();
 });
