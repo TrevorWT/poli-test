@@ -194,7 +194,7 @@ button:hover {
     flex-direction: column;
     justify-content: flex-start;
     align-items: stretch;
-    background: white;
+    background: var(--ctp-surface);
   }
   .container > *:first-child {
     margin-top: 0;
@@ -214,6 +214,8 @@ button:hover {
     min-height: 90px;
     font-size: 1em;
     padding: 0.7em;
+    background: var(--ctp-mantle);
+    color: var(--ctp-text);
   }
   #political-chart {
     width: 95vw !important;
@@ -234,10 +236,19 @@ button:hover {
     margin-right: auto;
     font-size: 1em;
     padding: 0.8em 0;
+    background: var(--ctp-accent);
+    color: var(--ctp-bg);
   }
   #summary-box, #recap-box {
     font-size: 1em;
     padding: 0.8em;
     margin-top: 1em;
+    background: var(--ctp-mantle);
+    color: var(--ctp-text);
+    border: 1.5px solid var(--ctp-overlay);
+    border-radius: 10px;
+  }
+  #recap-details summary {
+    color: var(--ctp-accent);
   }
 }
