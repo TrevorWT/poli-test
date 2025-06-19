@@ -138,8 +138,6 @@ button:hover {
   font-size: 1.13em;
   line-height: 1.7em;
   font-family: "Segoe UI", sans-serif;
-  max-height: 500px;
-  overflow-y: auto;
   color: var(--ctp-subtext);
 }
 #copy-box strong {

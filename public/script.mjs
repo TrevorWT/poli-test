@@ -176,12 +176,29 @@ function drawPoliticalChart(x, y) {
   ctx.lineTo(canvas.width, canvas.height / 2);
   ctx.stroke();
 
-  // Draw user point
+  // Draw axis labels
+  ctx.font = 'bold 1.1em Segoe UI, sans-serif';
+  ctx.fillStyle = '#a6adc8';
+  ctx.textAlign = 'center';
+  ctx.fillText('Left', 30, canvas.height / 2 - 10);
+  ctx.fillText('Right', canvas.width - 30, canvas.height / 2 - 10);
+  ctx.save();
+  ctx.translate(canvas.width / 2 - 40, 30);
+  ctx.rotate(-Math.PI / 2);
+  ctx.fillText('Authoritarian', 0, 0);
+  ctx.restore();
+  ctx.save();
+  ctx.translate(canvas.width / 2 + 40, canvas.height - 10);
+  ctx.rotate(-Math.PI / 2);
+  ctx.fillText('Libertarian', 0, 0);
+  ctx.restore();
+
+  // Draw user point (smaller)
   // x: -1 (left) to 1 (right), y: -1 (authoritarian) to 1 (libertarian)
   const px = ((x + 1) / 2) * canvas.width;
   const py = ((1 - y) / 2) * canvas.height;
   ctx.beginPath();
-  ctx.arc(px, py, 10, 0, 2 * Math.PI);
+  ctx.arc(px, py, 7, 0, 2 * Math.PI);
   ctx.fillStyle = '#f9e2af';
   ctx.strokeStyle = '#f38ba8';
   ctx.lineWidth = 3;
