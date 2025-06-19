@@ -162,17 +162,17 @@ function drawPoliticalChart(x, y) {
   const ctx = canvas.getContext('2d');
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  // Draw grid
+  // Draw grid (increase to 7 lines for 8 sections)
   ctx.strokeStyle = '#45475a';
   ctx.lineWidth = 1;
-  for (let i = 1; i < 4; i++) {
+  for (let i = 1; i < 8; i++) {
     ctx.beginPath();
-    ctx.moveTo((canvas.width / 4) * i, 0);
-    ctx.lineTo((canvas.width / 4) * i, canvas.height);
+    ctx.moveTo((canvas.width / 10) * i, 0);
+    ctx.lineTo((canvas.width / 10) * i, canvas.height);
     ctx.stroke();
     ctx.beginPath();
-    ctx.moveTo(0, (canvas.height / 4) * i);
-    ctx.lineTo(canvas.width, (canvas.height / 4) * i);
+    ctx.moveTo(0, (canvas.height / 10) * i);
+    ctx.lineTo(canvas.width, (canvas.height / 10) * i);
     ctx.stroke();
   }
 
@@ -204,10 +204,10 @@ function drawPoliticalChart(x, y) {
   const px = ((x + 1) / 2) * canvas.width;
   const py = ((1 - y) / 2) * canvas.height;
   ctx.beginPath();
-  ctx.arc(px, py, 7, 0, 2 * Math.PI);
+  ctx.arc(px, py, 4, 0, 2 * Math.PI); // smaller dot
   ctx.fillStyle = '#f9e2af';
   ctx.strokeStyle = '#f38ba8';
-  ctx.lineWidth = 3;
+  ctx.lineWidth = 2;
   ctx.fill();
   ctx.stroke();
 }
