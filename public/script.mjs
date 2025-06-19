@@ -46,11 +46,31 @@ async function loadQuestions() {
   const exportBtn = document.getElementById("export-btn");
   const copyBox = document.getElementById("copy-box");
 
-  // Automatically resize the textarea based on input
-    answerElement.addEventListener('input', () => {
+  // Automatically resize the textarea based on input and enforce 400 char limit
+  answerElement.addEventListener('input', () => {
     answerElement.style.height = 'auto';
     answerElement.style.height = answerElement.scrollHeight + 'px';
-});
+    if (answerElement.value.length > 400) {
+      answerElement.value = answerElement.value.slice(0, 400);
+    }
+    // Show character count
+    let charCount = document.getElementById('char-count');
+    if (!charCount) {
+      charCount = document.createElement('div');
+      charCount.id = 'char-count';
+      charCount.style = 'text-align:right; font-size:0.95em; color:var(--ctp-subtext); margin-top:0.2em;';
+      answerElement.parentNode.insertBefore(charCount, answerElement.nextSibling);
+    }
+    charCount.textContent = `${answerElement.value.length}/400 characters`;
+  });
+
+  // Move to next question on Enter (but allow Shift+Enter for newline)
+  answerElement.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      nextBtn.click();
+    }
+  });
 
 
   function loadQuestion() {
@@ -175,15 +195,7 @@ async function loadQuestions() {
         const goAgainBtn = document.getElementById('go-again-btn');
         goAgainBtn.style.display = 'block';
         goAgainBtn.onclick = () => {
-          // Reset all UI to initial state
-          recapDetails.style.display = 'none';
-          summaryBox.style.display = 'none';
-          document.getElementById('political-chart-container').style.display = 'none';
-          goAgainBtn.style.display = 'none';
-          countSelect.style.display = 'block';
-          questionBox.style.display = 'none';
-          currentIndex = 0;
-          userAnswers.length = 0;
+          window.location.reload();
         };
     }
 
