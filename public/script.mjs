@@ -19,7 +19,7 @@ async function loadQuestions() {
   const res = await fetch('/api/questions?count=10'); // change 10 to user input later
   const data = await res.json();
   questions = data.questions;
-  showQuestion();
+  loadQuestion();
 }
 
 
