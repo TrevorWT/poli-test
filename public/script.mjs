@@ -125,7 +125,7 @@ async function loadQuestions() {
     copyBox.innerHTML += `
       <br><br><strong>Summary:</strong> ${summary}
       <br><br><strong>Similar Public Figures:</strong>
-      <ul>${figures.map(name => `<li>${name}</li>`).join('')}</ul>
+      <ul style="margin-top:0.2em;">${figures.map(name => `<li>${name}</li>`).join('')}</ul>
     `;
 
     // Show and draw the political chart if coordinates are present
@@ -162,10 +162,10 @@ function drawPoliticalChart(x, y) {
   const ctx = canvas.getContext('2d');
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  // Draw grid (increase to 7 lines for 8 sections)
+  // Draw grid (10x10 squares = 9 lines)
   ctx.strokeStyle = '#45475a';
   ctx.lineWidth = 1;
-  for (let i = 1; i < 8; i++) {
+  for (let i = 1; i < 10; i++) {
     ctx.beginPath();
     ctx.moveTo((canvas.width / 10) * i, 0);
     ctx.lineTo((canvas.width / 10) * i, canvas.height);
