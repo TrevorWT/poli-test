@@ -77,6 +77,9 @@ async function loadQuestions() {
     if (currentIndex < questions.length) {
       questionElement.textContent = questions[currentIndex];
       answerElement.value = "";
+      // Remove char count if present
+      let charCount = document.getElementById('char-count');
+      if (charCount) charCount.textContent = '0/400 characters';
     } else {
       showExport();
     }

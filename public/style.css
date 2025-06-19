@@ -80,17 +80,15 @@ textarea:focus {
 
 /* Buttons */
 button {
-  margin-top: 1em;
-  margin-right: 0.5em;
-  padding: 0.8em 2em;
-  font-size: 1.05em;
+  margin-top: 0.5em;
+  padding: 0.7em 1.5em;
+  font-size: 1em;
   border: none;
-  border-radius: 10px;
+  border-radius: 8px;
   cursor: pointer;
   background-color: var(--ctp-accent);
   color: var(--ctp-bg);
-  font-weight: 600;
-  transition: background 0.2s, color 0.2s;
+  transition: background-color 0.2s ease;
   box-shadow: 0 2px 8px rgba(137, 180, 250, 0.08);
 }
 button:hover {
