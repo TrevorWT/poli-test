@@ -1,38 +1,60 @@
+/* Catppuccin Mocha color palette */
+:root {
+  --ctp-bg: #1e1e2e;
+  --ctp-surface: #313244;
+  --ctp-mantle: #181825;
+  --ctp-text: #cdd6f4;
+  --ctp-subtext: #a6adc8;
+  --ctp-accent: #89b4fa;
+  --ctp-green: #a6e3a1;
+  --ctp-red: #f38ba8;
+  --ctp-yellow: #f9e2af;
+  --ctp-blue: #89b4fa;
+  --ctp-overlay: #6c7086;
+}
+
 /* Global Styles */
 body {
   font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
-  background: linear-gradient(to bottom right, #f5f7fa, #c3cfe2);
+  background: var(--ctp-bg);
+  color: var(--ctp-text);
   margin: 0;
   padding: 0;
   min-height: 100vh;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
 }
 
 /* Main Container */
 .container {
-  background: white;
-  padding: 2em;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  width: 90%;
-  max-width: 600px;
+  background: var(--ctp-surface);
+  padding: 2.5em 2em 2em 2em;
+  border-radius: 18px;
+  box-shadow: 0 6px 32px rgba(30, 30, 46, 0.25);
+  width: 100%;
+  max-width: 650px;
+  margin-top: 2.5em;
+  margin-bottom: 2.5em;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  min-height: 80vh;
 }
 
 /* Header */
 h1 {
-  margin-bottom: 1em;
-  font-size: 1.8em;
-  color: #333;
+  margin-bottom: 1.2em;
+  font-size: 2.1em;
+  color: var(--ctp-accent);
 }
 
 /* Question Text */
 #question {
-  font-size: 1.2em;
-  color: #444;
-  margin-bottom: 0.5em;
+  font-size: 1.25em;
+  color: var(--ctp-text);
+  margin-bottom: 0.7em;
 }
 
 /* Text Area */
@@ -40,58 +62,108 @@ textarea {
   width: 100%;
   min-height: 120px;
   padding: 1em;
-  font-size: 1em;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  font-size: 1.05em;
+  border: 1.5px solid var(--ctp-overlay);
+  border-radius: 10px;
   resize: none;           /* Prevent manual resizing */
   overflow: hidden;       /* Hides internal scrollbar */
   box-sizing: border-box;
+  background: var(--ctp-mantle);
+  color: var(--ctp-text);
+  margin-bottom: 1em;
+  transition: border-color 0.2s;
 }
-
+textarea:focus {
+  border-color: var(--ctp-accent);
+  outline: none;
+}
 
 /* Buttons */
 button {
   margin-top: 1em;
-  padding: 0.7em 1.5em;
-  font-size: 1em;
+  margin-right: 0.5em;
+  padding: 0.8em 2em;
+  font-size: 1.05em;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
-  background-color: #4e89ff;
-  color: white;
-  transition: background-color 0.2s ease;
+  background-color: var(--ctp-accent);
+  color: var(--ctp-bg);
+  font-weight: 600;
+  transition: background 0.2s, color 0.2s;
+  box-shadow: 0 2px 8px rgba(137, 180, 250, 0.08);
 }
-
 button:hover {
-  background-color: #3a6edc;
+  background-color: var(--ctp-blue);
+  color: var(--ctp-text);
 }
 
 /* Export Button */
 #export-btn {
-  background-color: #28a745;
+  background-color: var(--ctp-green);
+  color: var(--ctp-bg);
+}
+#export-btn:hover {
+  background-color: var(--ctp-yellow);
+  color: var(--ctp-surface);
 }
 
-#export-btn:hover {
-  background-color: #1e7e34;
+/* Count Button */
+.count-btn {
+  background: var(--ctp-surface);
+  color: var(--ctp-accent);
+  border: 1.5px solid var(--ctp-accent);
+  margin: 0 0.5em 0.5em 0.5em;
+  padding: 0.7em 1.5em;
+  border-radius: 10px;
+  font-size: 1em;
+  font-weight: 500;
+  transition: background 0.2s, color 0.2s, border 0.2s;
+}
+.count-btn:hover {
+  background: var(--ctp-accent);
+  color: var(--ctp-bg);
+  border: 1.5px solid var(--ctp-blue);
 }
 
 /* Result Box */
 #copy-box {
   margin-top: 1.5em;
-  background-color: #fefefe;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 1.2em;
+  background-color: var(--ctp-mantle);
+  border: 1.5px solid var(--ctp-overlay);
+  border-radius: 10px;
+  padding: 1.5em;
   text-align: left;
   white-space: pre-wrap;
-  font-size: 1.1em;
-  line-height: 1.6em;
+  font-size: 1.13em;
+  line-height: 1.7em;
   font-family: "Segoe UI", sans-serif;
-  max-height: 400px;
+  max-height: 500px;
   overflow-y: auto;
+  color: var(--ctp-subtext);
 }
-
 #copy-box strong {
   font-weight: bold;
-  color: #333;
+  color: var(--ctp-accent);
+}
+
+/* Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 10px;
+  background: var(--ctp-surface);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--ctp-overlay);
+  border-radius: 8px;
+}
+
+/* Responsive Styles */
+@media (max-width: 700px) {
+  .container {
+    padding: 1.2em 0.5em;
+    min-height: 90vh;
+  }
+  h1 {
+    font-size: 1.3em;
+  }
 }
