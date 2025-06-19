@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Political Bias Calculator</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <p style="font-size: 0.9em; color: #444; margin-bottom: 1em;">
+  ⚠️ This tool uses AI to analyze your answers and places you on a political spectrum.
+  <strong>You are <u>not</u> being compared to any individual.</strong> Public figures shown at the end are simply known to fall in similar ideological camps. Inclusion does not imply similarity in values, morality, or behavior.
+</p>
+
+
+    <h1>Political Bias Calculator</h1>
+    <div id="question-box">
+      <p id="question">Loading question...</p>
+      <textarea id="answer" rows="5" cols="50" placeholder="Type your answer here..."></textarea><br />
+      <button id="next-btn">Next</button>
+      <button id="export-btn" style="display:none;">Copy All Answers</button>
+      <pre id="copy-box" style="display:none;"></pre>
+    </div>
+  </div>
+
+  <!-- Load JS module -->
+  <script type="module" src="script.mjs"></script>
+</body>
+</html>
