@@ -248,9 +248,9 @@ function drawPoliticalChart(x, y) {
   ctx.fillText('Left', 30, canvas.height / 2 - 10);
   ctx.fillText('Right', canvas.width - 30, canvas.height / 2 - 10);
   ctx.textAlign = 'left';
-  ctx.fillText('Authoritarian', canvas.width / 2 + 10, 25);
+  ctx.fillText('Libertarian', canvas.width / 2 + 10, 25);
   ctx.textAlign = 'right';
-  ctx.fillText('Libertarian', canvas.width / 2 - 10, canvas.height - 10);
+  ctx.fillText('Authoritarian', canvas.width / 2 - 10, canvas.height - 10);
 
   // Draw user point (smaller)
   // x: -1 (left) to 1 (right), y: -1 (authoritarian) to 1 (libertarian)
