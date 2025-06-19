@@ -4,6 +4,7 @@ import { OpenAI } from 'openai';
 import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { questionBins } from './questions.mjs';
 
 dotenv.config();
 
@@ -78,4 +79,33 @@ const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
+});
+
+function getRandomQuestions(count) {
+  const bins = Object.values(questionBins);
+  const selected = [];
+
+  // First, take 1 from each bin (if possible)
+  for (const bin of bins) {
+    if (bin.length > 0 && selected.length < count) {
+      const randIndex = Math.floor(Math.random() * bin.length);
+      selected.push(bin[randIndex]);
+    }
+  }
+
+  // Fill the rest with random picks from all bins
+  const flat = bins.flat();
+  while (selected.length < count && flat.length > 0) {
+    const randIndex = Math.floor(Math.random() * flat.length);
+    const q = flat.splice(randIndex, 1)[0];
+    if (!selected.includes(q)) selected.push(q);
+  }
+
+  return selected;
+}
+
+app.get('/api/questions', (req, res) => {
+  const count = parseInt(req.query.count) || 10;
+  const questions = getRandomQuestions(count);
+  res.json({ questions });
 });

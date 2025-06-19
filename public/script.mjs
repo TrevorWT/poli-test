@@ -13,13 +13,15 @@ fetch('/ping')
 
 
 document.addEventListener("DOMContentLoaded", () => {
-  const questions = [
-    "What are your thoughts on universal basic income?",
-    "How do you feel about gun ownership laws?",
-    "What should the government's role be in healthcare?",
-    "Should taxes be raised on the wealthy?",
-    "What is your stance on immigration policy?"
-  ];
+  let questions = [];
+
+async function loadQuestions() {
+  const res = await fetch('/api/questions?count=10'); // change 10 to user input later
+  const data = await res.json();
+  questions = data.questions;
+  showQuestion();
+}
+
 
   let currentIndex = 0;
   const userAnswers = [];
