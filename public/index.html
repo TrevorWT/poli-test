@@ -15,7 +15,13 @@
 
 
     <h1>Political Bias Calculator</h1>
-    <div id="question-box">
+    <div id="count-select" style="margin-bottom:2em; text-align:center;">
+      <h2 style="font-size:1.1em; margin-bottom:0.5em;">How many questions?</h2>
+      <button class="count-btn" data-count="10">10</button>
+      <button class="count-btn" data-count="20">20</button>
+      <button class="count-btn" data-count="40">40</button>
+    </div>
+    <div id="question-box" style="display:none;">
       <p id="question">Loading question...</p>
       <textarea id="answer" rows="5" cols="50" placeholder="Type your answer here..."></textarea><br />
       <button id="next-btn">Next</button>

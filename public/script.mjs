@@ -14,9 +14,23 @@ fetch('/ping')
 
 document.addEventListener("DOMContentLoaded", () => {
   let questions = [];
+  let questionCount = 10;
+
+  const countSelect = document.getElementById("count-select");
+  const countBtns = document.querySelectorAll(".count-btn");
+  const questionBox = document.getElementById("question-box");
+
+  countBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      questionCount = parseInt(btn.getAttribute("data-count"));
+      countSelect.style.display = "none";
+      questionBox.style.display = "block";
+      loadQuestions();
+    });
+  });
 
 async function loadQuestions() {
-  const res = await fetch('/api/questions?count=10'); // change 10 to user input later
+  const res = await fetch(`/api/questions?count=${questionCount}`);
   const data = await res.json();
   questions = data.questions;
   loadQuestion();
