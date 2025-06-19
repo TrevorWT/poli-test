@@ -84,9 +84,11 @@ async function loadQuestions() {
         nextBtn.style.display = "none";
         // exportBtn.style.display = "inline-block"; // Removed Copy All Answers button
 
-        // Q&A Recap
+        // Q&A Recap (now in details, collapsed by default, shown at the bottom)
+        const recapDetails = document.getElementById('recap-details');
+        recapDetails.style.display = "block";
+        recapDetails.open = false;
         const recapBox = document.getElementById('recap-box');
-        recapBox.style.display = "block";
         recapBox.textContent = userAnswers.map((qna, i) =>
             `Q${i + 1}: ${qna.question}\nA${i + 1}: ${qna.answer}\n`
         ).join("\n");
@@ -94,7 +96,7 @@ async function loadQuestions() {
         recapBox.style.border = '1.5px solid var(--ctp-overlay)';
         recapBox.style.borderRadius = '10px';
         recapBox.style.padding = '1.2em';
-        recapBox.style.marginTop = '1.5em';
+        recapBox.style.marginTop = '1em';
         recapBox.style.whiteSpace = 'pre-wrap';
         recapBox.style.fontSize = '1.08em';
         recapBox.style.lineHeight = '1.6em';
@@ -112,6 +114,7 @@ async function loadQuestions() {
         summaryBox.style.fontSize = '1.08em';
         summaryBox.style.lineHeight = '1.6em';
         summaryBox.style.fontFamily = '"Segoe UI", sans-serif';
+        summaryBox.style.textAlign = 'left'; // Set text alignment to left
 
         copyBox.style.display = "none";
 
@@ -168,7 +171,21 @@ async function loadQuestions() {
   console.error(err);
 });
 
-  }
+        // Show Go Again button
+        const goAgainBtn = document.getElementById('go-again-btn');
+        goAgainBtn.style.display = 'block';
+        goAgainBtn.onclick = () => {
+          // Reset all UI to initial state
+          recapDetails.style.display = 'none';
+          summaryBox.style.display = 'none';
+          document.getElementById('political-chart-container').style.display = 'none';
+          goAgainBtn.style.display = 'none';
+          countSelect.style.display = 'block';
+          questionBox.style.display = 'none';
+          currentIndex = 0;
+          userAnswers.length = 0;
+        };
+    }
 
     exportBtn.addEventListener("click", () => {
         navigator.clipboard.writeText(copyBox.textContent)

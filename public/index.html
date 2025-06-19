@@ -27,12 +27,16 @@
       <button id="next-btn">Next</button>
       <pre id="copy-box" style="display:none;"></pre>
     </div>
-    <div id="recap-box" style="display:none;"></div>
     <div id="summary-box" style="display:none;"></div>
+    <details id="recap-details" style="margin-top:1.5em; display:none;">
+      <summary style="cursor:pointer; font-size:1.08em; font-weight:bold; color:var(--ctp-accent);">Show Q&A Recap</summary>
+      <div id="recap-box"></div>
+    </details>
     <div id="political-chart-container" style="display:none; margin-top:2em;">
       <h2 style="font-size:1.1em; color:var(--ctp-accent);">Your Political Compass</h2>
       <canvas id="political-chart" width="400" height="400" style="background:var(--ctp-mantle); border-radius:12px;"></canvas>
     </div>
+    <button id="go-again-btn" style="display:none; margin: 2em auto 0 auto; padding: 0.9em 2.2em; font-size: 1.1em; background: var(--ctp-accent); color: var(--ctp-bg); border-radius: 10px; border: none; font-weight: 600; cursor: pointer;">Go Again</button>
   </div>
 
   <!-- Load JS module -->
