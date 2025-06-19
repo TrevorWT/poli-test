@@ -81,6 +81,9 @@ async function loadQuestions() {
       let charCount = document.getElementById('char-count');
       if (charCount) charCount.textContent = '0/400 characters';
     } else {
+      // Remove char count when finished
+      let charCount = document.getElementById('char-count');
+      if (charCount) charCount.remove();
       showExport();
     }
   }
