@@ -110,13 +110,19 @@ async function loadQuestions() {
       return;
     }
 
-    const { summary, figures } = parsed;
+    const { summary, figures, coordinates } = parsed;
 
     copyBox.innerHTML += `
       <br><br><strong>Summary:</strong> ${summary}
       <br><br><strong>Similar Public Figures:</strong>
       <ul>${figures.map(name => `<li>${name}</li>`).join('')}</ul>
     `;
+
+    // Show and draw the political chart if coordinates are present
+    if (coordinates && typeof coordinates.x === 'number' && typeof coordinates.y === 'number') {
+      document.getElementById('political-chart-container').style.display = 'block';
+      drawPoliticalChart(coordinates.x, coordinates.y);
+    }
   } else {
     copyBox.innerHTML += "<br><br><strong>⚠️ Could not get result.</strong>";
   }
@@ -136,3 +142,49 @@ async function loadQuestions() {
   // 🚀 Initial call to display the first question
   loadQuestions();
 });
+
+// Draw the political compass chart and user's point
+function drawPoliticalChart(x, y) {
+  const canvas = document.getElementById('political-chart');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Draw grid
+  ctx.strokeStyle = '#45475a';
+  ctx.lineWidth = 1;
+  for (let i = 1; i < 4; i++) {
+    ctx.beginPath();
+    ctx.moveTo((canvas.width / 4) * i, 0);
+    ctx.lineTo((canvas.width / 4) * i, canvas.height);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(0, (canvas.height / 4) * i);
+    ctx.lineTo(canvas.width, (canvas.height / 4) * i);
+    ctx.stroke();
+  }
+
+  // Draw axes
+  ctx.strokeStyle = '#89b4fa';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(canvas.width / 2, 0);
+  ctx.lineTo(canvas.width / 2, canvas.height);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(0, canvas.height / 2);
+  ctx.lineTo(canvas.width, canvas.height / 2);
+  ctx.stroke();
+
+  // Draw user point
+  // x: -1 (left) to 1 (right), y: -1 (authoritarian) to 1 (libertarian)
+  const px = ((x + 1) / 2) * canvas.width;
+  const py = ((1 - y) / 2) * canvas.height;
+  ctx.beginPath();
+  ctx.arc(px, py, 10, 0, 2 * Math.PI);
+  ctx.fillStyle = '#f9e2af';
+  ctx.strokeStyle = '#f38ba8';
+  ctx.lineWidth = 3;
+  ctx.fill();
+  ctx.stroke();
+}
