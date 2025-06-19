@@ -82,21 +82,45 @@ async function loadQuestions() {
         questionElement.textContent = "All done! Here's your session:";
         answerElement.style.display = "none";
         nextBtn.style.display = "none";
-        exportBtn.style.display = "inline-block";
+        // exportBtn.style.display = "inline-block"; // Removed Copy All Answers button
 
-        const exportText = userAnswers.map((qna, i) =>
+        // Q&A Recap
+        const recapBox = document.getElementById('recap-box');
+        recapBox.style.display = "block";
+        recapBox.textContent = userAnswers.map((qna, i) =>
             `Q${i + 1}: ${qna.question}\nA${i + 1}: ${qna.answer}\n`
         ).join("\n");
+        recapBox.style.background = 'var(--ctp-mantle)';
+        recapBox.style.border = '1.5px solid var(--ctp-overlay)';
+        recapBox.style.borderRadius = '10px';
+        recapBox.style.padding = '1.2em';
+        recapBox.style.marginTop = '1.5em';
+        recapBox.style.whiteSpace = 'pre-wrap';
+        recapBox.style.fontSize = '1.08em';
+        recapBox.style.lineHeight = '1.6em';
+        recapBox.style.fontFamily = '"Segoe UI", sans-serif';
 
-        copyBox.textContent = exportText;
-        copyBox.style.display = "block";
+        // Summary/Similar Figures
+        const summaryBox = document.getElementById('summary-box');
+        summaryBox.style.display = "block";
+        summaryBox.innerHTML = '';
+        summaryBox.style.background = 'var(--ctp-mantle)';
+        summaryBox.style.border = '1.5px solid var(--ctp-overlay)';
+        summaryBox.style.borderRadius = '10px';
+        summaryBox.style.padding = '1.2em';
+        summaryBox.style.marginTop = '1.5em';
+        summaryBox.style.fontSize = '1.08em';
+        summaryBox.style.lineHeight = '1.6em';
+        summaryBox.style.fontFamily = '"Segoe UI", sans-serif';
 
-        // Show loading spinner
+        copyBox.style.display = "none";
+
+        // Show loading spinner in summaryBox
         let spinner = document.createElement('div');
         spinner.id = 'ai-loading-spinner';
         spinner.innerHTML = '<span class="spinner"></span> Analyzing your answers...';
         spinner.style = 'margin-top:1.5em; color:var(--ctp-accent); font-size:1.1em; text-align:center;';
-        copyBox.parentNode.insertBefore(spinner, copyBox.nextSibling);
+        summaryBox.appendChild(spinner);
 
     fetch('/analyze', {
   method: 'POST',
@@ -116,14 +140,14 @@ async function loadQuestions() {
       parsed = JSON.parse(data.result);
     } catch (e) {
       console.error("Could not parse GPT response as JSON:", data.result);
-      copyBox.innerHTML += `<br><br><strong>Summary:</strong> ${data.result}`;
+      summaryBox.innerHTML += `<br><br><strong>Summary:</strong> ${data.result}`;
       return;
     }
 
     const { summary, figures, coordinates } = parsed;
 
-    copyBox.innerHTML += `
-      <br><br><strong>Summary:</strong> ${summary}
+    summaryBox.innerHTML = `
+      <strong>Summary:</strong> ${summary}
       <br><br><strong>Similar Public Figures:</strong>
       <ul style="margin-top:0.2em;">${figures.map(name => `<li>${name}</li>`).join('')}</ul>
     `;
@@ -134,13 +158,13 @@ async function loadQuestions() {
       drawPoliticalChart(coordinates.x, coordinates.y);
     }
   } else {
-    copyBox.innerHTML += "<br><br><strong>⚠️ Could not get result.</strong>";
+    summaryBox.innerHTML += "<br><br><strong>⚠️ Could not get result.</strong>";
   }
 })
 .catch(err => {
   const sp = document.getElementById('ai-loading-spinner');
   if (sp) sp.remove();
-  copyBox.innerHTML += "<br><br><strong>⚠️ Error connecting to AI.</strong>";
+  summaryBox.innerHTML += "<br><br><strong>⚠️ Error connecting to AI.</strong>";
   console.error(err);
 });
 
