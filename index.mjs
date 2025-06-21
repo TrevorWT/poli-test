@@ -6,6 +6,14 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { questionBins } from './questions.mjs';
 
+import pkg from 'pg';
+const { Pool } = pkg;
+
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: { rejectUnauthorized: false }
+});
+
 dotenv.config();
 
 const app = express();
@@ -123,3 +131,5 @@ app.get('/api/questions', (req, res) => {
   const questions = getRandomQuestions(count);
   res.json({ questions });
 });
+
+//lololol
