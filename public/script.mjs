@@ -186,6 +186,9 @@ async function loadQuestions() {
       document.getElementById('political-chart-container').style.display = 'block';
       drawPoliticalChart(coordinates.x, coordinates.y);
     }
+
+    // Draw the radar chart for category scores
+    drawCategoryRadar(parsed.categoryScores);
   } else {
     summaryBox.innerHTML += "<br><br><strong>⚠️ Could not get result.</strong>";
   }
@@ -269,4 +272,64 @@ function drawPoliticalChart(x, y) {
   ctx.lineWidth = 2;
   ctx.fill();
   ctx.stroke();
+}
+
+// Draw the radar chart for category scores
+function drawCategoryRadar(categoryScores) {
+  const container = document.getElementById('category-radar-container');
+  const canvas = document.getElementById('category-radar');
+  if (!container || !canvas || !window.Chart) return;
+  container.style.display = 'block';
+
+  // Destroy previous chart if exists
+  if (window.categoryRadarChart) {
+    window.categoryRadarChart.destroy();
+  }
+
+  // Prepare data
+  const labels = Object.keys(categoryScores).map(key =>
+    key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())
+  );
+  const data = Object.values(categoryScores);
+
+  window.categoryRadarChart = new Chart(canvas, {
+    type: 'radar',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: 'Category Score',
+        data: data,
+        fill: true,
+        backgroundColor: 'rgba(137,180,250,0.2)',
+        borderColor: 'rgba(137,180,250,1)',
+        pointBackgroundColor: 'rgba(249,226,175,1)',
+        pointBorderColor: 'rgba(137,180,250,1)',
+        pointRadius: 5,
+        borderWidth: 2
+      }]
+    },
+    options: {
+      responsive: false,
+      plugins: {
+        legend: { display: false }
+      },
+      scales: {
+        r: {
+          min: -1,
+          max: 1,
+          ticks: {
+            stepSize: 0.5,
+            color: '#a6adc8',
+            font: { family: 'JetBrains Mono', size: 13 }
+          },
+          pointLabels: {
+            color: '#cdd6f4',
+            font: { family: 'JetBrains Mono', size: 13 }
+          },
+          grid: { color: '#45475a' },
+          angleLines: { color: '#45475a' }
+        }
+      }
+    }
+  });
 }

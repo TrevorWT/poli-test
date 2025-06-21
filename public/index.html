@@ -36,9 +36,15 @@
       <h2 style="font-size:1.1em; color:var(--ctp-accent);">Your Political Compass</h2>
       <canvas id="political-chart" width="400" height="400" style="background:var(--ctp-mantle); border-radius:12px;"></canvas>
     </div>
+    <div id="category-radar-container" style="display:none; margin-top:2em; text-align:center;">
+      <h2 style="font-size:1.1em; color:var(--ctp-accent);">Category Breakdown</h2>
+      <canvas id="category-radar" width="400" height="400" style="background:var(--ctp-mantle); border-radius:12px; display:inline-block;"></canvas>
+    </div>
     <button id="go-again-btn" style="display:none; margin: 2em auto 0 auto; padding: 0.9em 2.2em; font-size: 1.1em; background: var(--ctp-accent); color: var(--ctp-bg); border-radius: 10px; border: none; font-weight: 600; cursor: pointer;">Go Again</button>
   </div>
 
+  <!-- Load Chart.js for radar chart -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <!-- Load JS module -->
   <script type="module" src="script.mjs"></script>
 </body>
